@@ -6,12 +6,12 @@ public class Doctor {
     private Specialty specialty;
 
     // added
-    private int healingPower;
+    private double healingPower;
 
     public Doctor() {
         this.name = null;
         this.specialty = null;
-        this.healingPower = 0;
+        this.healingPower = 0.0;
     }
 
     public Doctor(String name, Specialty specialty) {
@@ -19,19 +19,19 @@ public class Doctor {
         this.specialty = specialty;
         switch(specialty.getIndex()) {
             case 1:
-                setHealingPower(5);
+                setHealingPower(5.0);
                 break;
             case 2:
-                setHealingPower(8);
+                setHealingPower(8.0);
                 break;
             case 3:
-                setHealingPower(15);
+                setHealingPower(0.00001);
                 break;
             case 4:
-                setHealingPower(10);
+                setHealingPower(0.000001);
                 break;
             case 5:
-                setHealingPower(7);
+                setHealingPower(7.0);
                 break;
         }
     }
@@ -52,11 +52,11 @@ public class Doctor {
         this.specialty = specialty;
     }
 
-    public int getHealingPower() {
+    public double getHealingPower() {
         return healingPower;
     }
 
-    public void setHealingPower(int healingPower) {
+    public void setHealingPower(double healingPower) {
         this.healingPower = healingPower;
     }
 

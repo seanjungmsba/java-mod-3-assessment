@@ -97,7 +97,6 @@ public class Hospital {
         }
     }
 
-
     public Map<Symptom, Specialty> getSymptomToSpecialty() {
         return symptomToSpecialty;
     }
@@ -118,10 +117,6 @@ public class Hospital {
             System.out.println("Cannot treat patient who does not exist");
         }
 
-        // check if the patient is a part of patients
-        // to do this, we have to get a right doctor
-        // a right doctor can be found by matching doctor's specialty with patient's symptom
-
         Specialty specialty = findSpecialty(patient.getSymptom()); // find specialty based on patient's symptom
         Doctor doctor = findDoctor(specialty); // find doctor based on specialty
         List<Patient> patientList = patientMap.get(doctor);
@@ -131,14 +126,19 @@ public class Hospital {
             // based on doctor's healingPower and patient's healing index
             if (patient.getHealthIndex() > 0 && patient.getHealthIndex() < 100) {
                 System.out.print("We've found a match: ");
-                System.out.println("doctor '" + doctor.getDoctorName() + "' is treating patient '" + patient.getName() + "'" + " with symptom of " + patient.getSymptom());
-                int healingPower = doctor.getHealingPower();
-
-                System.out.println("patient health index before treatment: " + patient.getHealthIndex());
-                System.out.println("(doctor is treating patients)");
-                patient.setHealthIndex(healingPower);
-                System.out.println("patient health index after treatment: " + patient.getHealthIndex());
-                System.out.println();
+                if ( ! (patient.getSymptom().equals(Symptom.DWARFISM)  ||  patient.getSymptom().equals(Symptom.OSTEOARTHRITIS))) {
+                    System.out.println("doctor '" + doctor.getDoctorName() + "' is treating patient '" + patient.getName() + "'" + " with symptom of " + patient.getSymptom());
+                    double healingPower = doctor.getHealingPower();
+                    System.out.println("patient health index before treatment: " + patient.getHealthIndex());
+                    System.out.println("(doctor is treating patients)");
+                    patient.setHealthIndex(healingPower);
+                    System.out.println("patient health index after treatment: " + patient.getHealthIndex());
+                    System.out.println();
+                } else {
+                    System.out.println("Even though we've found a doctor-patient match, patient's symptom is incurable");
+                    System.out.println("Unfortunately, the patient is dismissed to be admitted in another hospital");
+                    removePatient(patients, patient);
+                }
             } else {
                 System.out.println("Based on patient's health index of " + patient.getHealthIndex() + " the treatment is not needed");
                 removePatient(patients, patient);
@@ -152,7 +152,7 @@ public class Hospital {
         }
     }
 
-    // added
+
     public void removePatient(List<Patient> patients, Patient patient) {
         patients.remove(patient);
     }
@@ -160,7 +160,6 @@ public class Hospital {
 
     public Patient findPatientByName(String name) {
         for (Patient patient: patients) {
-//            System.out.println("printing patient.getName() " + patient.getName());
             if (patient.getName().equals(name))
                 return patient;
         }

@@ -47,23 +47,35 @@ public class HospitalWorld {
         }
     }
     private static void showOptions(Scanner sc) throws JsonProcessingException {
-        System.out.println("ENTER [1] to finish the program with Hospital info \nENTER [2] to keep treating patient \nENTER [3] to export as JSON file");
-        int userOptions = getInputInt(sc, 1, 3);
-        switch (userOptions) {
-            case 1:
-                hospital.printHospitalInfo();
-                break;
-            case 2:
-                treatingPatientOption(sc);
-                showOptions(sc);
-                break;
-            case 3:
-                try {
-                    hospital.writeJson(hospital);
-                } catch (JsonProcessingException jsonProcessingException) {
-                    jsonProcessingException.printStackTrace();
-                }
-                break;
+        System.out.println("ENTER [1] to finish the program with Hospital info \nENTER [2] to treat patient(s) in the hospital \nENTER [3] to export as JSON file \nENTER [4] to enter more doctor info \nENTER [5] to enter more patient info");
+        try {
+            int userOptions = getInputInt(sc, 1, 5);
+            switch (userOptions) {
+                case 1:
+                    hospital.printHospitalInfo();
+                    break;
+                case 2:
+                    treatingPatientOption(sc);
+                    showOptions(sc);
+                    break;
+                case 3:
+                    try {
+                        hospital.writeJson(hospital);
+                    } catch (JsonProcessingException jsonProcessingException) {
+                        jsonProcessingException.printStackTrace();
+                    }
+                    break;
+                case 4:
+                    enteringDoctorInfo(sc);
+                    showOptions(sc);
+                    break;
+                case 5:
+                    enteringPatientInfo(sc);
+                    showOptions(sc);
+                    break;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
     private static void enteringHospitalInfo(Scanner sc) {
@@ -75,7 +87,7 @@ public class HospitalWorld {
 
     private static void enteringDoctorInfo(Scanner sc) {
         System.out.println("=============== ENTERING DOCTOR INFO ===============");
-        System.out.print("How many doctor(s) do you want in '" + hospital + "' hospital? ");
+        System.out.print("How many doctor(s) do you want to add in '" + hospital + "' hospital? ");
         int numberOfDoctors = getInputInt(sc, 1, 2147483647);
         for (int i = 0; i < numberOfDoctors; i++) {
             int num = i + 1;
@@ -87,7 +99,7 @@ public class HospitalWorld {
 
     private static void enteringPatientInfo(Scanner sc) {
         System.out.println("=============== ENTERING PATIENT INFO ===============");
-        System.out.print("How many patient(s) do you want in '" + hospital + "' hospital? ");
+        System.out.print("How many patient(s) do you want to add in '" + hospital + "' hospital? ");
 
         int numberOfPatients = getInputInt(sc, 1, 2147483647);
 

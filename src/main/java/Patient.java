@@ -4,7 +4,7 @@ public class Patient {
     private Symptom symptom;
 
     // added
-    private int healthIndex;
+    private double healthIndex;
 
     public Patient() {
         this.name = null;
@@ -16,19 +16,19 @@ public class Patient {
         this.symptom = symptom;
         switch (symptom.getIndex()) {
             case 1:
-                setHealthIndex(70);
+                setHealthIndex(70.0);
                 break;
             case 2:
-                setHealthIndex(55);
+                setHealthIndex(55.0);
                 break;
             case 3:
-                setHealthIndex(15);
+                setHealthIndex(15.0);
                 break;
             case 4:
-                setHealthIndex(30);
+                setHealthIndex(30.0);
                 break;
             case 5:
-                setHealthIndex(40);
+                setHealthIndex(40.0);
                 break;
         }
     }
@@ -50,11 +50,11 @@ public class Patient {
         this.symptom = symptom;
     }
 
-    public int getHealthIndex() {
+    public double getHealthIndex() {
         return this.healthIndex;
     }
 
-    public void setHealthIndex(int healthIndex) {
+    public void setHealthIndex(double healthIndex) {
         this.healthIndex += healthIndex;
     }
 
@@ -63,11 +63,11 @@ public class Patient {
     }
 
     public boolean healed() {
-        return this.healthIndex >= 100;
+        return this.healthIndex >= 100.0;
     }
 
     public boolean died() {
-        return this.healthIndex <= 0;
+        return this.healthIndex <= 0.0;
     }
 
     @Override
